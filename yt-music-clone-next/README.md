@@ -74,4 +74,11 @@ yarn add next-themes
 ## 5. React-Spinners, React-Icons
 
 - `React-Spinners`는 리액트 애플리케이션에서 로딩 스피너
+- https://www.davidhu.io/react-spinners/
+
 - `React-Icons`는 다양한 아이콘
+- https://react-icons.github.io/react-icons/
+
+# Vercel 배포
+
+https://next-js-clone-coding.vercel.app
