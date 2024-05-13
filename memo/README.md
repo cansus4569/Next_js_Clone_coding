@@ -408,3 +408,89 @@ className="disabled:cursor-not-allowed disabled:opacity-50"
   </div>
 </section>
 ```
+
+---
+
+## meta, favicon
+
+공식 : https://nextjs.org/docs/app/building-your-application/optimizing/metadata#static-metadata
+
+### 메타 데이터의 3종류
+
+- Static Metadata
+- Dynamic Metadata
+- File-based metadata
+  - favicon.ico / apple-icon.jpg / icon.jpg
+  - opengraph-image.jpg / twitter-image.jpg
+  - robots.txt
+  - sitemap.xml
+
+---
+
+## page, params, searchParams
+
+공식 : https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+
+### 설명해보기
+
+- params(Dynamic Route) vs searchParams
+
+- params(Dynamic Route)
+
+  - URL Path 라고 생각하면 될듯(?)
+
+- searchParams
+  - queryString
+  - 즉, 해당 URL Path 에서 필요한 정보값들이라고 생각하면 될듯(?)
+
+---
+
+## group folder
+
+- app router에서는 디렉터리 구조에 따라서 앱의 URL에 따른 페이지가 결정된다.
+  - app/library/page.tsx
+  - app/playlist/page.tsx
+- 그룹 폴더는 페이지 경로에 영향을 미치지 않고 폴더를 정리하고 싶을 때 사용한다.
+
+  - 폴더 정리, 폴더를 그룹핑할 때 소괄호 `( )`를 사용하게되면 해당 경로의 영향을 받지 않도록 폴더를 구성할 수 있다.
+  - app/(site)/ 아래에 페이지는 경로에 영향을 미치지 않는다.
+  - 즉, localhost:3000 로 접속할 때 보여지는 index.html 역할을 한다.
+
+- [Route Group](https://nextjs.org/docs/app/building-your-application/routing/route-groups)
+  - 소괄호 `( )` 를 이용해서 폴더를 생성하면된다.
+  - URL 경로에 영향을 주지 않고 경로를 구성할 수 있게 된다.
+  - 멀티 루트 레이아웃을 만들어 구성할 수 있다. 또는 특정 group folder만 레이아웃을 따로 만들어 사용할 수 있다.
+- [app-router playground](https://app-router.vercel.app/)
+
+---
+
+## DataFetching 전략에 따라서 아래 4가지 방식으로 SSR을 구현한다.
+
+- Streaming with Suspense
+- Static Data
+- Dynamic Data
+- Incremental Static Regeneration
+
+```
+면접 질문 : 4가지 방식들의 차이점은?
+```
+
+- Refs : https://app-router.vercel.app/streaming
+
+## layout file
+
+- Root Layout vs Nesting Layouts
+- Refs : https://nextjs.org/docs/app/building-your-application/routing/pages#layouts
+
+- root layout은 오직 하나이며, 최상단에 위치하고 있다.
+- 각 route 마다 layout과 page를 가질 수 있다.
+
+  - app/layout.tsx <--- Root Layout
+  - app/test/layout.tsx
+  - app/test/page.tsx
+
+- layout이 먼저 렌더링되고 다음 page가 렌더링된다.
+  - layout에 정의된 `{children}` 이 곧 page 이다.
+  - 즉, layout 부모 / page 자식 관계 인듯하다.
+
+---
