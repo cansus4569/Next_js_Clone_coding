@@ -494,3 +494,94 @@ className="disabled:cursor-not-allowed disabled:opacity-50"
   - 즉, layout 부모 / page 자식 관계 인듯하다.
 
 ---
+
+## loading, error
+
+### 설명해보기 - 서버 컴포넌트가 아닌 경우 로딩 애니메이션이 안나오는 이유는...?
+
+- 애니메이션 동작 여부는 useState로 관리되는 라이브러리 이기때문에
+- 서버 사이드 랜더링 이후 애니메이션이 작동하지 않아요. 어떻게 해결 할것인가 ?
+  - css 파일에 정의하여 사용하면 가능함!
+
+### 더 알아보기
+
+- Next.js 에서 사용하는 약속된 특수파일 리스트
+- 참조 : https://nextjs.org/docs/getting-started/project-structure#routing-files
+
+---
+
+## RootLayout 에서 피해야할 것
+
+- RootLayout의 지연은 전체 App의 느려지는 현상으로 번진다.
+
+### 성능 테스트 해보기
+
+```
+< case1 >
+rootLayout 4초 지연
+homeLayout 2초 지연
+-> UI가 보여지기 까지 총 4초 걸림
+< case2 >
+rootLayout 2초 지연
+homeLayout 4초 지연
+-> 2초 지연 -> home loading... 2초 -> home page UI 보임
+< case3 >
+rootLayout 4초 지연
+homeLayout 2초 지연
+-> 4초 지연 -> home page UI 보임
+```
+
+---
+
+## Sidebar > Logo
+
+- 아래 코드 작성시 에러가 발생함
+
+```jsx
+const Logo = () => {
+  const onClickLogo = () => {
+    // home 이동 하는 로직
+  };
+  return (
+    <section className="flex flex-row items-center gap-3">
+      <div>
+        <RxHamburgerMenu size={24} />
+      </div>
+      <div className="cursor-pointer" onClick={onClickLogo}>
+        <Image alt="logo" width={100} height={30} src={'/main-logo.svg'} />
+      </div>
+    </section>
+  );
+};
+```
+
+![위의 코드 에러](https://github.com/cansus4569/Next_js_Clone_coding/assets/63139527/b17e6535-6663-446a-b5df-a9b6475c48e7)
+
+- 에러의 원인 : Event Handler 처리는 서버 컴포넌트에서 불가하다. 클라이언트 컴포넌트에서 가능하다.
+- 해결 방법 : 최상단에 `'use client'`를 선언해서 클라이언트/서버 컴포넌트로 사용할 수 있게 정의한다.
+
+### useRouter 2종류 차이
+
+- next/router
+  - PageRouter 사용시 용도
+- next/navigation
+  - AppRouter를 사용시 용도
+
+## ![useRouter](https://github.com/cansus4569/Next_js_Clone_coding/assets/63139527/9b96227c-d843-4450-89a5-89e4ed8edd48)
+
+## Sidebar > Navigator
+
+### usePathname
+
+- 현재 경로를 알 수 있다.
+
+```js
+import { usePathname } from 'next/navigation';
+const pathname = usePathname();
+```
+
+- 클라이언트 컴포넌트에서만 사용할 수 있다.
+
+### useParams, useSearchParams, useRouter
+
+- 클라이언트 컴포넌트에서만 사용할 수 있다.
