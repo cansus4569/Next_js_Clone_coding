@@ -585,3 +585,69 @@ const pathname = usePathname();
 ### useParams, useSearchParams, useRouter
 
 - 클라이언트 컴포넌트에서만 사용할 수 있다.
+
+---
+
+## Header > bg
+
+### CSS Position relative, absolute
+
+- 참조 : https://creamilk88.tistory.com/197
+
+### CSS의 z-index 속성 이해하기
+
+- 참조 : https://www.daleseo.com/css-z-index/#google_vignette
+
+### 외부에서 이미지를 가져오는 경우 next.config.mjs 파일을 수정해줘야 한다.
+
+```js
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.unsplash.com',
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+```
+
+### next/image의 Image 컴포넌트를 사용하기 위한 핊수 조건
+
+- 아래 코드에서 에러가 발생하는 이유 : required "width" property
+
+```jsx
+<div>
+  <Image src='https://images.unsplash.com/photo-1707833558984-3293e794031c'>
+</div>
+```
+
+- 해결하기 위한 방안 (2가지)
+
+1. Image 컴포넌트의 `"width"` 속성값을 지정해준다.
+
+2. 상위 노드에서 "width" 속성값을 주고, Image 컴포넌트에서는 fill 속성값을 부여한다.
+
+```jsx
+<div className="relative h-[400px] w-full">
+  <Image
+    alt="mediaItem"
+    className="object-cover"
+    fill
+    src="https://images.unsplash.com/photo-1707833558984-3293e794031c"
+  />
+</div>
+```
+
+---
+
+## Tailwind CSS 반응형 디자인 방법
+
+![반응형 CSS](https://github.com/cansus4569/Next_js_Clone_coding/assets/63139527/7693271e-7030-4b0c-afd4-7999de413d33)
+
+- 참조 : https://tailwindcss.com/docs/responsive-design
+
+---
