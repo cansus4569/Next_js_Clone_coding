@@ -593,10 +593,17 @@ const pathname = usePathname();
 ### CSS Position relative, absolute
 
 - 참조 : https://creamilk88.tistory.com/197
+- position 속성값
+  - static : 기준 없음 (배치 불가능/기본값)
+  - relative : 요소 자기 자신을 기준으로 배치
+  - absolute : 부모(조상) 요소를 기준으로 배치
+  - fixed : 뷰포트 기준으로 배치
+  - sticky : 스크롤 영역 기준으로 배치
 
 ### CSS의 z-index 속성 이해하기
 
 - 참조 : https://www.daleseo.com/css-z-index/#google_vignette
+  - z-index 속성을 사용하면 position 속성이 static이 아닌 요소의 깊이를 조절할 수 있습니다.
 
 ### 외부에서 이미지를 가져오는 경우 next.config.mjs 파일을 수정해줘야 한다.
 
@@ -709,6 +716,69 @@ function debounce(func, wait) {
 }
 
 export default ScrollComponent;
+```
+
+---
+
+## Zustand 전역상태 관리 라이브러리
+
+### Redux 와 Zustand 차이
+
+- Provider의 유무
+  - Zustand는 리액트의 External Storage라고 하는 개념을 사용해서 상태를 관리하기 떄문이다.
+
+### 언제 전역상태를 써야 할까요?
+
+- 페이지별 상태관리 공유하기 위해서 사용됨
+
+### Zustand 내부 동작원리
+
+- 참조 : https://ui.toast.com/posts/ko_20210812
+- `Zustand`는 `Context API` 사용을 배제하고 `클로저`를 활용하여 스토어 내부 상태를 관리한다.
+- 다만 특수한 경우를 위해 Context API 기반으로 의존성을 주입하는 방법을 제공한다.
+
+- 참조 : https://www.nextree.io/zustand/
+- `클로저`를 이용한 상태관리, `useSyncExternalStore` 와 `tearing` 개념을 알아둘것
+
+### Zustand 정리
+
+### Zustand 사용방법
+
+```js
+// useUIState.js
+import { create } from 'zustand';
+
+const useUIState = create((set) => ({
+  homeCategory: '',
+  headerImageSrc:
+    'https://images.unsplash.com/photo-1707833558984-3293e794031c',
+  setHomeCategory: (value) => set({ homeCategory: value }),
+  setHeaderImageSrc: (src) => set({ headerImageSrc: src }),
+}));
+
+export default useUIState;
+```
+
+```jsx
+// sample.jsx
+import useUIState from './useUIState.js';
+
+const App = () => {
+  const { homeCategory, headerImageSrc, setHomeCategory, setHeaderImageSrc } =
+    useUIState();
+
+  const handleClick = (item) => {
+    setHomeCategory(item);
+    setHeaderImageSrc(item);
+  };
+
+  return (
+    <div>
+      <p>{homeCategory}</p>
+      <button onClick={() => handleClick(item)}></button>
+    </div>
+  );
+};
 ```
 
 ---
