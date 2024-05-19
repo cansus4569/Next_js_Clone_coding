@@ -50,3 +50,18 @@
 
 - 생각보다,, width와 height 정의를 많이 써야하고, 부모의 width/height 속성값도 신경써야 한다.
 - 안그러면, 보이지 않아서 디버깅을 통해 하나하나 확인하면서 왜 화면상에 보이지 않는지 찾아나가야한다.
+
+---
+
+## 경로 재설정
+
+Route 설정은 서버에서 할 수 있으며, 브라우저(클라이언트)에서도 가능하다.
+
+- 클라이언트 컴포넌트에서 Route를 바꾸는 예시는 무엇이 있을까요?
+  - useRouter
+    - https://nextjs.org/docs/app/api-reference/functions/use-router
+- 서버측에서 Route를 바꾸는 예시는 무엇이 있을까요 ?
+  - permanentRedirect(path [, type])
+    - https://nextjs.org/docs/app/api-reference/functions/permanentRedirect
+  - redirect(path [, type])
+    - https://nextjs.org/docs/app/api-reference/functions/redirect
