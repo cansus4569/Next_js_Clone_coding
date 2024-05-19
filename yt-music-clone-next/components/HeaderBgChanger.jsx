@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import useUIState from '@/hooks/useUIState';
 import Image from 'next/image';
