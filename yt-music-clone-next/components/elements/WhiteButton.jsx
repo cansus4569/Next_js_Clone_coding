@@ -2,7 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-const WhiteButton = ({ icon, label, className, ...props }) => {
+const WhiteButton = ({ icon = <></>, label, className = '', ...props }) => {
   return (
     <div
       className={cn(
